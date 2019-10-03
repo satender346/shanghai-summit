@@ -53,10 +53,34 @@ function setup_go () {
   su - summit -c "wget https://dl.google.com/go/go1.12.7.linux-amd64.tar.gz"
   su - summit -c "tar -xvf go1.12.7.linux-amd64.tar.gz"
   su - summit -c "sudo mv go /usr/local"
-  su - summit -c "echo 'export GOROOT=/usr/local/go' >> ~/.bashrc"
-  su - summit -c "echo 'export GOPATH=/home/summit' >> ~/.bashrc"
-  su - summit -c "echo 'export PATH=/home/summit/bin:/usr/local/go/bin:$PATH' >> ~/.bashrc"
+  su - summit -c "echo 'export GOROOT=/usr/local/go' >> ~/.profile"
+  su - summit -c "echo 'export GOPATH=/home/summit' >> ~/.profile"
+  su - summit -c "echo 'export PATH=/home/summit/bin:/usr/local/go/bin:$PATH' >> ~/.profile"
+  su - summit -c "echo 'export GO111MODULE=on' >> ~/.profile"
+  echo 'export GOROOT=/usr/local/go' >> ~/.profile
+  echo 'export GOPATH=/home/summit' >> ~/.profile
+  echo 'export PATH=/home/summit/bin:/usr/local/go/bin:$PATH' >> ~/.profile
+  echo 'export GO111MODULE=on' >> ~/.profile
   su - summit -c "go version >> /tmp/go_version"
+
+}
+
+function setup_operator () {
+
+  echo "$(tput setaf 2)===============================================================$(tput setaf 9)"
+  echo "$(tput setaf 2)======================= Setup Operator ========================$(tput setaf 9)"
+  echo "$(tput setaf 2)===============================================================$(tput setaf 9)"
+  # Set the release version variable
+  RELEASE_VERSION=v0.10.0
+  # Download the release binary
+  curl -LO https://github.com/operator-framework/operator-sdk/releases/download/${RELEASE_VERSION}/operator-sdk-${RELEASE_VERSION}-x86_64-linux-gnu
+  # Verify the downloaded release binary
+  curl -LO https://github.com/operator-framework/operator-sdk/releases/download/${RELEASE_VERSION}/operator-sdk-${RELEASE_VERSION}-x86_64-linux-gnu.asc
+  # Install the release binary in your PATH
+  chmod +x operator-sdk-${RELEASE_VERSION}-x86_64-linux-gnu && sudo mkdir -p /usr/local/bin/ && sudo cp operator-sdk-${RELEASE_VERSION}-x86_64-linux-gnu /usr/local/bin/operator-sdk && rm operator-sdk-${RELEASE_VERSION}-x86_64-linux-gnu
+  # Compile and install from master
+  su - summit -s /bin/bash -c  "go get -d github.com/operator-framework/operator-sdk"
+  su - summit -s /bin/bash -c  "cd $GOPATH/src/github.com/operator-framework/operator-sdk && git checkout master &&  make tidy && make install"
 
 }
 
@@ -82,6 +106,7 @@ function main () {
   install_kubernetes
   setup_kubectl
   setup_go
+  setup_operator
 
 }
 
@@ -96,6 +121,8 @@ else
   setup_kubectl ) setup_kubectl
   ;;
   setup_go ) setup_go
+  ;;
+  setup_operator ) setup_operator
   ;;
   kubeadm_reset ) kubeadm_reset
   ;;
