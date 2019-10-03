@@ -60,6 +60,21 @@ function setup_go () {
 
 }
 
+function kubeadm_reset () {
+
+  echo "$(tput setaf 2)===============================================================$(tput setaf 9)"
+  echo "$(tput setaf 2)======================= Kubeadm Reset =========================$(tput setaf 9)"
+  echo "$(tput setaf 2)===============================================================$(tput setaf 9)"
+  kubeadm reset --force
+  if [[ $(docker rm $(sudo docker ps -qa)) ]]; then
+      docker image rm -f $(sudo docker image list -qa)
+  else
+      echo "No Docker Images found"
+  fi
+
+}
+
+
 function main () {
 
   create_user
@@ -80,6 +95,8 @@ else
   setup_kubectl ) setup_kubectl
   ;;
   setup_go ) setup_go
+  ;;
+  kubeadm_reset ) kubeadm_reset
   ;;
   *)
   usage
