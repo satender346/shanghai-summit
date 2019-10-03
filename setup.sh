@@ -66,7 +66,8 @@ function kubeadm_reset () {
   echo "$(tput setaf 2)======================= Kubeadm Reset =========================$(tput setaf 9)"
   echo "$(tput setaf 2)===============================================================$(tput setaf 9)"
   kubeadm reset --force
-  if [[ $(docker rm $(sudo docker ps -qa)) ]]; then
+  if [[ $(sudo docker ps -qa) ]]; then
+      docker rm $(sudo docker ps -qa)
       docker image rm -f $(sudo docker image list -qa)
   else
       echo "No Docker Images found"
