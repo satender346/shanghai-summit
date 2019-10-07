@@ -23,6 +23,8 @@ function install_kubernetes () {
   echo "$(tput setaf 2)===================== Install Kubernetes ======================$(tput setaf 9)"
   echo "$(tput setaf 2)===============================================================$(tput setaf 9)"
   apt-get update && apt-get -y install docker.io apt-transport-https
+  #For Alibaba cloud we need to execute below swap cmd
+  swapoff -a && sed -i '/swap/d' /etc/fstab 
   systemctl enable docker.service
   curl -s https://packages.cloud.google.com/apt/doc/apt-key.gpg | apt-key add -
   echo deb http://apt.kubernetes.io/ kubernetes-xenial main | tee /etc/apt/sources.list.d/kubernetes.list
