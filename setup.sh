@@ -64,7 +64,7 @@ function setup_go () {
   echo 'export PATH=/home/summit/bin:/usr/local/go/bin:$PATH' >> ~/.profile
   echo 'export GO111MODULE=on' >> ~/.profile
   su - summit -c "go version >> /tmp/go_version"
-  apt-get install mercurial
+  apt-get install mercurial -y
 }
 
 function setup_operator () {
