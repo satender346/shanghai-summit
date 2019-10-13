@@ -28,7 +28,8 @@ function install_kubernetes () {
   systemctl enable docker.service
   curl -s https://packages.cloud.google.com/apt/doc/apt-key.gpg | apt-key add -
   echo deb http://apt.kubernetes.io/ kubernetes-xenial main | tee /etc/apt/sources.list.d/kubernetes.list
-  apt-get update && apt-get install -y kubelet kubeadm
+  KUBEVERSION=1.15.4-00
+  apt-get update && apt-get install -y kubeadm=${KUBEVERSION} kubelet=${KUBEVERSION} kubectl=${KUBEVERSION}
   kubeadm init --node-name master --pod-network-cidr=10.244.0.0/16
   sleep 10
 
@@ -44,7 +45,6 @@ function setup_kubectl () {
   su - summit -c "sudo chown summit:summit /home/summit/.kube/config"
   su - summit -c "kubectl taint nodes master node-role.kubernetes.io/master-"
   su - summit -c "kubectl apply -f  https://raw.githubusercontent.com/coreos/flannel/2140ac876ef134e0ed5af15c65e414cf26827915/Documentation/kube-flannel.yml"
-
 }
 
 function setup_go () {
