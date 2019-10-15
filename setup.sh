@@ -80,7 +80,7 @@ function setup_operator () {
   curl -LO https://github.com/operator-framework/operator-sdk/releases/download/${RELEASE_VERSION}/operator-sdk-${RELEASE_VERSION}-x86_64-linux-gnu.asc
   # Install the release binary in your PATH
   chmod +x operator-sdk-${RELEASE_VERSION}-x86_64-linux-gnu && sudo mkdir -p /usr/local/bin/ && sudo cp operator-sdk-${RELEASE_VERSION}-x86_64-linux-gnu /usr/local/bin/operator-sdk && rm operator-sdk-${RELEASE_VERSION}-x86_64-linux-gnu
-  # Compile and install from master
+  # Create Summit Operator
   su - summit -s /bin/bash -c  "mkdir -p /home/summit/src/github.com/example-inc/"
   su - summit -s /bin/bash -c  "cd /home/summit/src/github.com/example-inc/ && operator-sdk new summit-operator >> /tmp/summit.log"
 
