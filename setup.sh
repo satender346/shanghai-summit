@@ -13,7 +13,9 @@ function create_user () {
   [ $? -eq 0 ] && echo "User has been added to system!" || echo "Failed to add a user!"
   sed -i 's/PasswordAuthentication no/PasswordAuthentication yes/g' /etc/ssh/sshd_config
   sed -i 's/#   PasswordAuthentication yes/   PasswordAuthentication yes/g' /etc/ssh/ssh_config
+  echo 'summit  ALL=(ALL) NOPASSWD: ALL' >> /etc/sudoers
   service ssh reload
+  usermod -aG docker summit
 
 }
 
@@ -24,7 +26,7 @@ function install_kubernetes () {
   echo "$(tput setaf 2)===============================================================$(tput setaf 9)"
   apt-get update && apt-get -y install docker.io apt-transport-https
   #For Alibaba cloud we need to execute below swap cmd
-  swapoff -a && sed -i '/swap/d' /etc/fstab 
+  swapoff -a && sed -i '/swap/d' /etc/fstab
   systemctl enable docker.service
   curl -s https://packages.cloud.google.com/apt/doc/apt-key.gpg | apt-key add -
   echo deb http://apt.kubernetes.io/ kubernetes-xenial main | tee /etc/apt/sources.list.d/kubernetes.list
@@ -64,7 +66,7 @@ function setup_go () {
   echo 'export PATH=/home/summit/bin:/usr/local/go/bin:$PATH' >> ~/.profile
   echo 'export GO111MODULE=on' >> ~/.profile
   su - summit -c "go version >> /tmp/go_version"
-  apt-get install mercurial -y
+  apt-get install mercurial tree -y
 }
 
 function setup_operator () {
