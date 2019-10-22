@@ -13,7 +13,9 @@ function create_user () {
   [ $? -eq 0 ] && echo "User has been added to system!" || echo "Failed to add a user!"
   sed -i 's/PasswordAuthentication no/PasswordAuthentication yes/g' /etc/ssh/sshd_config
   sed -i 's/#   PasswordAuthentication yes/   PasswordAuthentication yes/g' /etc/ssh/ssh_config
+  echo 'summit  ALL=(ALL) NOPASSWD: ALL' >> /etc/sudoers
   service ssh reload
+  usermod -aG docker summit
 
 }
 
@@ -24,11 +26,12 @@ function install_kubernetes () {
   echo "$(tput setaf 2)===============================================================$(tput setaf 9)"
   apt-get update && apt-get -y install docker.io apt-transport-https
   #For Alibaba cloud we need to execute below swap cmd
-  swapoff -a && sed -i '/swap/d' /etc/fstab 
+  swapoff -a && sed -i '/swap/d' /etc/fstab
   systemctl enable docker.service
   curl -s https://packages.cloud.google.com/apt/doc/apt-key.gpg | apt-key add -
   echo deb http://apt.kubernetes.io/ kubernetes-xenial main | tee /etc/apt/sources.list.d/kubernetes.list
-  apt-get update && apt-get install -y kubelet kubeadm
+  KUBEVERSION=1.15.4-00
+  apt-get update && apt-get install -y kubeadm=${KUBEVERSION} kubelet=${KUBEVERSION} kubectl=${KUBEVERSION}
   kubeadm init --node-name master --pod-network-cidr=10.244.0.0/16
   sleep 10
 
@@ -44,7 +47,6 @@ function setup_kubectl () {
   su - summit -c "sudo chown summit:summit /home/summit/.kube/config"
   su - summit -c "kubectl taint nodes master node-role.kubernetes.io/master-"
   su - summit -c "kubectl apply -f  https://raw.githubusercontent.com/coreos/flannel/2140ac876ef134e0ed5af15c65e414cf26827915/Documentation/kube-flannel.yml"
-
 }
 
 function setup_go () {
@@ -64,7 +66,7 @@ function setup_go () {
   echo 'export PATH=/home/summit/bin:/usr/local/go/bin:$PATH' >> ~/.profile
   echo 'export GO111MODULE=on' >> ~/.profile
   su - summit -c "go version >> /tmp/go_version"
-
+  apt-get install mercurial tree -y
 }
 
 function setup_operator () {
@@ -80,9 +82,9 @@ function setup_operator () {
   curl -LO https://github.com/operator-framework/operator-sdk/releases/download/${RELEASE_VERSION}/operator-sdk-${RELEASE_VERSION}-x86_64-linux-gnu.asc
   # Install the release binary in your PATH
   chmod +x operator-sdk-${RELEASE_VERSION}-x86_64-linux-gnu && sudo mkdir -p /usr/local/bin/ && sudo cp operator-sdk-${RELEASE_VERSION}-x86_64-linux-gnu /usr/local/bin/operator-sdk && rm operator-sdk-${RELEASE_VERSION}-x86_64-linux-gnu
-  # Compile and install from master
-  su - summit -s /bin/bash -c  "go get -d github.com/operator-framework/operator-sdk"
-  su - summit -s /bin/bash -c  "cd $GOPATH/src/github.com/operator-framework/operator-sdk && git checkout master &&  make tidy && make install"
+  # Create Summit Operator
+  su - summit -s /bin/bash -c  "mkdir -p /home/summit/src/github.com/example-inc/"
+  su - summit -s /bin/bash -c  "cd /home/summit/src/github.com/example-inc/ && operator-sdk new summit-operator >> /tmp/summit.log"
 
 }
 
