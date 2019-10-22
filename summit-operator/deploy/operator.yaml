@@ -1,0 +1,33 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: summit-operator
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      name: summit-operator
+  template:
+    metadata:
+      labels:
+        name: summit-operator
+    spec:
+      serviceAccountName: summit-operator
+      containers:
+        - name: summit-operator
+          # Replace this with the built image name
+          image: summit-operator:v1.0.0
+          command:
+          - summit-operator
+          imagePullPolicy: Never
+          env:
+            - name: WATCH_NAMESPACE
+              valueFrom:
+                fieldRef:
+                  fieldPath: metadata.namespace
+            - name: POD_NAME
+              valueFrom:
+                fieldRef:
+                  fieldPath: metadata.name
+            - name: OPERATOR_NAME
+              value: "summit-operator"
