@@ -15,7 +15,6 @@ function create_user () {
   sed -i 's/#   PasswordAuthentication yes/   PasswordAuthentication yes/g' /etc/ssh/ssh_config
   echo 'summit  ALL=(ALL) NOPASSWD: ALL' >> /etc/sudoers
   service ssh reload
-  usermod -aG docker summit
 
 }
 
@@ -28,6 +27,7 @@ function install_kubernetes () {
   #For Alibaba cloud we need to execute below swap cmd
   swapoff -a && sed -i '/swap/d' /etc/fstab
   systemctl enable docker.service
+  usermod -aG docker summit
   curl -s https://packages.cloud.google.com/apt/doc/apt-key.gpg | apt-key add -
   echo deb http://apt.kubernetes.io/ kubernetes-xenial main | tee /etc/apt/sources.list.d/kubernetes.list
   KUBEVERSION=1.15.4-00

@@ -18,7 +18,7 @@ function  docker_registry () {
   # Note: This yaml file creates Secret, which is used to store your DockerHub credentials
   kubectl apply --filename secret.yaml
   # Note: Thic yaml files creates Service Account, which is used to link the build process to the secret
-  kubectl apply --filename serviceaacount.yaml
+  kubectl apply --filename serviceacount.yaml
 
 }
 
