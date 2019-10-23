@@ -8,16 +8,18 @@ spec:
     name: build-docker-image-from-git-source
   inputs:
     resources:
-      - name: docker-source
+      - name: docker-source1
         resourceRef:
-          name: krishna-git
+          name: summit-git
     params:
       - name: pathToDockerFile
         value: Dockerfile
       - name: pathToContext
-        value: /workspace/docker-source
+        value: /workspace/docker-source1/tekton/
+      - name: tag
+        value: summit01
   outputs:
     resources:
-      - name: builtImage
+      - name: builtImage1
         resourceRef:
-          name: krishna-image
+          name: summit-image

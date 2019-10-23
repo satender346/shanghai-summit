@@ -1,9 +1,9 @@
 apiVersion: tekton.dev/v1alpha1
 kind: PipelineResource
 metadata:
-  name: krishna-image
+  name: summit-image
 spec:
   type: image
   params:
     - name: url
-      value: docker.io/kvenkata986/welcome
+      value: docker.io/summit2019/welcome
