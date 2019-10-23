@@ -34,7 +34,7 @@ function create_PipelineResource () {
 
 function create_Task () {
   echo "$(tput setaf 2)===============================================================$(tput setaf 9)"
-  echo "$(tput setaf 2)======= Create Taskm  ========$(tput setaf 9)"
+  echo "$(tput setaf 2)======= Create Task  ========$(tput setaf 9)"
   echo "$(tput setaf 2)===============================================================$(tput setaf 9)"
   # Note: This create Pipeline Resource for Git
   kubectl apply --filename ./task.yaml
@@ -64,9 +64,9 @@ else
   PASSWORD=$2
   EMAIL=$3
   case $1 in
-    docker_registry) deploy_tekton
-    ;;
     deploy_tekton ) deploy_tekton
+    ;;
+    docker_registry ) docker_registry
     ;;
     create_PipelineResource ) create_PipelineResource
     ;;
