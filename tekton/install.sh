@@ -7,8 +7,10 @@ function deploy_tekton () {
   echo "$(tput setaf 2)===============================================================$(tput setaf 9)"
   # Install Tekton
   kubectl apply --filename https://storage.googleapis.com/tekton-releases/pipeline/previous/v0.7.0/release.yaml
+  set +e
   # NOTE: Wait for deploy
   ../utils/wait-for-pods.sh tekton
+  set -e
 }
 
 function  docker_registry () {
