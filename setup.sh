@@ -34,6 +34,7 @@ function install_kubernetes () {
   apt-get update && apt-get install -y kubeadm=${KUBEVERSION} kubelet=${KUBEVERSION} kubectl=${KUBEVERSION}
   kubeadm init --node-name master --pod-network-cidr=10.244.0.0/16
   sleep 10
+  ./utils/wait-for-pods.sh kube-system
 
 }
 
@@ -47,6 +48,7 @@ function setup_kubectl () {
   su - summit -c "sudo chown summit:summit /home/summit/.kube/config"
   su - summit -c "kubectl taint nodes master node-role.kubernetes.io/master-"
   su - summit -c "kubectl apply -f  https://raw.githubusercontent.com/coreos/flannel/2140ac876ef134e0ed5af15c65e414cf26827915/Documentation/kube-flannel.yml"
+  ./utils/wait-for-pods.sh kube-system
 }
 
 function setup_go () {

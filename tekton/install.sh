@@ -8,7 +8,7 @@ function deploy_tekton () {
   # Install Tekton
   kubectl apply --filename https://storage.googleapis.com/tekton-releases/pipeline/previous/v0.7.0/release.yaml
   # NOTE: Wait for deploy
-  ./utils/wait-for-pods.sh tekton
+  ../utils/wait-for-pods.sh tekton
 }
 
 function  docker_registry () {
