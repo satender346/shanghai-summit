@@ -5,22 +5,23 @@ metadata:
 spec:
   inputs:
     resources:
-      - name: docker-source
+      - name: docker-source1
         type: git
     params:
       - name: pathToDockerFile
         type: string
         description: The path to the dockerfile to build
-        default: /workspace/docker-source/Dockerfile
       - name: pathToContext
         type: string
         description:
           The build context used by Kaniko
           (https://github.com/GoogleContainerTools/kaniko#kaniko-build-contexts)
-        default: /workspace/docker-source
+      - name: tag
+        type: string
+        description: Image tag in dockerhub
   outputs:
     resources:
-      - name: builtImage
+      - name: builtImage1
         type: image
   steps:
     - name: build-and-push
@@ -31,6 +32,6 @@ spec:
       command:
         - /kaniko/executor
       args:
-        - --dockerfile=Dockerfile
-        - --destination=docker.io/kvenkata986/welcome
-        - --context=/workspace/docker-source
+        - --dockerfile=$(inputs.params.pathToDockerFile)
+        - --destination=$(outputs.resources.builtImage1.url):$(inputs.params.tag)
+        - --context=$(inputs.params.pathToContext)
