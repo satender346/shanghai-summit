@@ -47,6 +47,12 @@ function create_TaskRun () {
   echo "$(tput setaf 2)======= Create TaskRun ========$(tput setaf 9)"
   echo "$(tput setaf 2)===============================================================$(tput setaf 9)"
   # Note: This create Pipeline Resource for Git
+  if [ -z $name ]
+    then
+      echo "name variable not set, using default summit01"
+    else
+      sed -i 's/summit01/'"$name"'/' ./taskrun.yaml
+  fi
   kubectl apply --filename ./taskrun.yaml
 }
 
