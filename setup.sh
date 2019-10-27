@@ -47,6 +47,7 @@ function setup_kubectl () {
   su - summit -c "sudo chown summit:summit /home/summit/.kube/config"
   su - summit -c "kubectl taint nodes master node-role.kubernetes.io/master-"
   su - summit -c "kubectl apply -f  https://raw.githubusercontent.com/coreos/flannel/2140ac876ef134e0ed5af15c65e414cf26827915/Documentation/kube-flannel.yml"
+
 }
 
 function setup_go () {
@@ -67,6 +68,7 @@ function setup_go () {
   echo 'export GO111MODULE=on' >> ~/.profile
   su - summit -c "go version >> /tmp/go_version"
   apt-get install mercurial tree jq -y
+
 }
 
 function setup_operator () {
@@ -84,7 +86,8 @@ function setup_operator () {
   chmod +x operator-sdk-${RELEASE_VERSION}-x86_64-linux-gnu && sudo mkdir -p /usr/local/bin/ && sudo cp operator-sdk-${RELEASE_VERSION}-x86_64-linux-gnu /usr/local/bin/operator-sdk && rm operator-sdk-${RELEASE_VERSION}-x86_64-linux-gnu
   # Create Summit Operator
   su - summit -s /bin/bash -c  "mkdir -p /home/summit/src/github.com/example-inc/"
-  su - summit -s /bin/bash -c  "cd /home/summit/src/github.com/example-inc/ && operator-sdk new summit-operator >> /tmp/summit.log"
+  su - summit -s /bin/bash -c  "cd /home/summit/src/github.com/example-inc/ && operator-sdk new test-operator >> /tmp/summit.log"
+  su - summit -s /bin/bash -c  "cd /home/summit/src/ && git clone https://github.com/kvenkata986/shanghai-summit.git"
 
 }
 
