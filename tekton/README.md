@@ -39,7 +39,7 @@ Tekton Pipelines is an OpenSource project by Google to Build, Run and Maintain C
 
 3. Create Docker Registry Secret and Service Account
 
-                ./tekton.sh docker_registry
+		./tekton.sh docker_registry
 
 4. Now create `PipelineResource` for Github and DockerHub. Here we specify our git repository and Project in DockerHub were images are pushed
 
@@ -55,4 +55,4 @@ Tekton Pipelines is an OpenSource project by Google to Build, Run and Maintain C
 
 To see all the resource created so far as part of Tekton Pipelines, run the command
 
-                kubectl get tekton-pipelines
+		kubectl get tekton-pipelines
