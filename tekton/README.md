@@ -1,18 +1,3 @@
----
-layout: post
-title: "Tekton  Pipelines"
-date: 2019-05-27
-categories: [wiki]
-description: " "
-thumbnail: "img/placeholder.jpg"
-disable_comments: false
-authorbox: true
-toc: true
-mathjax: true
-tags: [dockerhub, kubernetes, helm, tekton, CI/CD Pipeline]
-published: true
----
-
 # Overview
 
 In this post, we will go through the basics of Google Tekton and build Tekton pipeline to build container images using Kaniko and publish them to dockerhub. As of now triggering of the build is manual until auto trigger feature is live.
@@ -50,23 +35,23 @@ Tekton Pipelines is an OpenSource project by Google to Build, Run and Maintain C
 
 2. Install Tekton. This command downloads latest release of tekton and does a `kubectl apply -f  https://storage.googleapis.com/tekton-releases/pipeline/previous/v0.7.0/release.yaml`
 
-		./install.sh deploy_tekton
+		./tekton.sh deploy_tekton
 
 3. Create Docker Registry Secret and Service Account
 
-                ./install.sh docker_registry
+                ./tekton.sh docker_registry
 
 4. Now create `PipelineResource` for Github and DockerHub. Here we specify our git repository and Project in DockerHub were images are pushed
 
-		./install.sh create_PipelineResource
+		./tekton.sh create_PipelineResource
 
 5. Now Create a `Task` which downloads our repo specified in above step from github and using the `Dockerfile` from the downloaded repo, it builds Image using kaniko.
 
-		./install.sh create_Task
+		./tekton.sh create_Task
 
 6. Now Create `TaskRun` to run above pipeline
 
-		./install.sh create_TaskRun
+		./tekton.sh create_TaskRun
 
 To see all the resource created so far as part of Tekton Pipelines, run the command
 

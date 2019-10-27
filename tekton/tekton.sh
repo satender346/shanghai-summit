@@ -57,11 +57,11 @@ function create_TaskRun () {
 }
 
 usage() {
-  echo "Usage:  ./install.sh deploy_tekton"
-  echo "        ./install.sh docker_registry"
-  echo "        ./install.sh create_PipelineResource"
-  echo "        ./install.sh create_Task"
-  echo "        ./install.sh create_TaskRun"
+  echo "Usage:  ./tekton.sh deploy_tekton"
+  echo "        ./tekton.sh docker_registry"
+  echo "        ./tekton.sh create_PipelineResource"
+  echo "        ./tekton.sh create_Task"
+  echo "        ./tekton.sh create_TaskRun"
   exit 1
 }
 
