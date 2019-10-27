@@ -1,8 +1,8 @@
 #!/bin/bash
 set +e
 
-BASEPATH='/home/summit/src'
-OPENINFRAPATH='/home/summit/src/openinfra-summit'
+BASEPATH=$HOME/src
+OPENINFRAPATH=$HOME/src/openinfra-summit
 
 function step1 () {
 
@@ -32,8 +32,7 @@ function step2 () {
   operator-sdk add api --api-version=kubedge.cloud.com/v1alpha1 --kind=Cloner
 
   printf "$(tput setaf 2)Modify pkg/apis/kubedge/v1alpha1/cloner_types.go to define new fields for Cloner spec and status \n \n$(tput setaf 9)"
-  cp $BASEPATH/shanghai-summit/summit-operator/pkg/apis/cloner/v1alpha1/cloner_types.go $OPENINFRAPATH/pkg/apis/kubedge/v1alpha1/cloner_types.go
-
+  wget https://raw.githubusercontent.com/kvenkata986/shanghai-summit/master/summit-operator/pkg/apis/cloner/v1alpha1/cloner_types.go -O $OPENINFRAPATH/pkg/apis/kubedge/v1alpha1/cloner_types.go
   printf "$(tput setaf 2)Executes 'operator-sdk generate k8s' after modifying the cloner_types.go file to update the generated code for that resource type \n \n$(tput setaf 9)"
   operator-sdk generate k8s
 
@@ -51,6 +50,9 @@ function step3 () {
   printf "$(tput setaf 2)Executes 'operator-sdk add controller --api-version=kubedge.cloud.com/v1alpha1 --kind=Cloner' to add a new Controller to the project that will watch and reconcile the Memcached resource \n \n$(tput setaf 9)"
   cd $OPENINFRAPATH
   operator-sdk add controller --api-version=kubedge.cloud.com/v1alpha1 --kind=Cloner
+
+  printf "$(tput setaf 2)Execute 'kubectl create -f deploy/crds/kubedge_v1alpha1_cloner_crd.yaml' to register the CRD with Kubernetes apiserver \n \n$(tput setaf 9)"
+  kubectl create -f deploy/crds/kubedge_v1alpha1_cloner_crd.yaml
 
   printf "$(tput setaf 2)Update 'deploy/operator.yaml' with openinfra-summit image \n \n$(tput setaf 9)"
   sed -i 's|REPLACE_IMAGE|kvenkata986/shanghai-summit:v0.0.1|g' deploy/operator.yaml
@@ -86,7 +88,8 @@ function step5 () {
   echo "$(tput setaf 2)===============================================================$(tput setaf 9)"
 
   cd $OPENINFRAPATH
-
+  printf "$(tput setaf 2)Update the CR to match with latest temaplate Spec \n \n$(tput setaf 9)"
+  wget https://raw.githubusercontent.com/kvenkata986/shanghai-summit/master/summit-operator/deploy/crds/cloner_v1alpha1_cloner_cr.yaml -O $OPENINFRAPATH/deploy/crds/kubedge_v1alpha1_cloner_cr.yaml
   printf "$(tput setaf 2)Create the example Cloner CR that was generated at deploy/crds/kubedge_v1alpha1_cloner_cr.yaml \n \n$(tput setaf 9)"
   kubectl apply -f  deploy/crds/kubedge_v1alpha1_cloner_cr.yaml
 
@@ -123,4 +126,3 @@ else
   ;;
   esac
 fi
-
