@@ -27,11 +27,11 @@ Create a simple Go-based Operator where the custom resource for the application 
 
 Login to server with username `summit` and password as `summit`.
 
-	`ssh summit@IPADRESS`
+		ssh summit@IPADRESS
 
 Naviagte to `/home/summit/src`
 
-	`cd /home/summit/src`
+		cd /home/summit/src
 
 ## Steps to Execute
 
@@ -39,7 +39,7 @@ Naviagte to `/home/summit/src`
    1. Executes `operator-sdk new openinfra-summit` command to create a new Project called `openinfra-summit`.
    2. Executes `go mod tidy` from the folder to install all dependencies  required for `GO`.
 
-	./operator.sh step1
+		./operator.sh step1
 
 2. Step2 implements,
    1. Executes `operator-sdk add api --api-version=kubedge.cloud.com/v1alpha1 --kind=Cloner` to add a new Custom Resource Definition API called Cloner with APIVersion kubedge.cloud.com/v1alpha1 and Kind Cloner.
@@ -47,14 +47,14 @@ Naviagte to `/home/summit/src`
    3. Executes `operator-sdk generate k8s' after modifying the cloner_types.go` file to update the generated code for that resource type.
    4. Executes `operator-sdk generate openapi` to automatically generate the OpenAPI validations.
 
-	./operator.sh step2
+		./operator.sh step2
 
 3. Step3 implements,
-   1. Executes `operator-sdk add controller --api-version=kubedge.cloud.com/v1alpha1 --kind=Cloner` to add a new Controller to the project that will watch and reconcile the Cloner resource.
+   1. Executes `operator-sdk add controller --api-version=kubedge.cloud.com/v1alpha1 --kind=Cloner` to add a new Controller to the project that will watch and reconcile the `Cloner` resource.
    2. Execute `kubectl create -f deploy/crds/kubedge_v1alpha1_cloner_crd.yaml` to register the CRD with Kubernetes apiserver.
    3. Update `deploy/operator.yaml` with openinfra-summit image.
 
-	./operator.sh step3
+		./operator.sh step3
 
 4. Step4 implements,
    1. Creates Service Account by executing `kubectl create -f deploy/service_account.yaml`.
@@ -62,24 +62,24 @@ Naviagte to `/home/summit/src`
    3. Creates RoleBinding Account by executing `kubectl create -f deploy/role_binding.yaml`.
    4. Deploy openinfra-summit Controller `kubectl create -f deploy/operator.yaml`.
 
-	./operator.sh step3
+		./operator.sh step3
 
   Verify that the `openinfra-summit` Deployment is up and running:
 
-	kubectl get deployment
-	NAME               READY   UP-TO-DATE   AVAILABLE   AGE
-	openinfra-summit   1/1     1            1           29m
+		kubectl get deployment
+		NAME               READY   UP-TO-DATE   AVAILABLE   AGE
+		openinfra-summit   1/1     1            1           29m
 
 
 5. Step5 implements,
    1. Update the CR to match with the latest template Spec.
    2. Create the Cloner CR that was generated at `kubectl apply -f deploy/crds/kubedge_v1alpha1_cloner_cr.yaml`
 
-	./operator.sh step5
+		./operator.sh step5
 
-  Check if the pods and CR status to confirm the status is updated with the Cloner pod names
+  Check if the pods and CR status to confirm the status is updated with the `Cloner` pod names
 
-	kubectl get pods
-	NAME                                READY   STATUS    RESTARTS   AGE
-	summit-pod                          1/1     Running   0          7s
-	openinfra-summit-5f5d76564d-f45tx   1/1     Running   0          25s
+		kubectl get pods
+		NAME                                READY   STATUS    RESTARTS   AGE
+		summit-pod                          1/1     Running   0          7s
+		openinfra-summit-5f5d76564d-f45tx   1/1     Running   0          25s

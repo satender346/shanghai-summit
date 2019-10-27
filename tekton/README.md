@@ -24,7 +24,7 @@ Tekton Pipelines is an OpenSource project by Google to Build, Run and Maintain C
 
 1. Navigate to `shanghai-summit/tekton` directory
 
-		`cd /home/summit/src/shanghai-summit/tekton`
+		cd /home/summit/src/shanghai-summit/tekton
 
 2. Install Tekton. This command downloads latest release of tekton and does a `kubectl apply -f  https://storage.googleapis.com/tekton-releases/pipeline/previous/v0.7.0/release.yaml`
 
