@@ -11,8 +11,8 @@ spec:
     spec:
       terminationGracePeriodSeconds: 2
       containers:
-      - name: busybox
-        image: busybox
+      - name: Simple-Web
+        image: kvenkata986/welcome:1.0
         command:
         - "sleep"
         - "3600"

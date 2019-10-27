@@ -16,7 +16,7 @@ spec:
       containers:
         - name: summit-operator
           # Replace this with the built image name
-          image: summit-operator:v1.0.0
+          image: kvenkata986/shanghai-summit:v0.0.1
           command:
           - summit-operator
           imagePullPolicy: Never
