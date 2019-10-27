@@ -88,6 +88,7 @@ function setup_operator () {
   su - summit -s /bin/bash -c  "mkdir -p /home/summit/src/github.com/example-inc/"
   su - summit -s /bin/bash -c  "cd /home/summit/src/github.com/example-inc/ && operator-sdk new test-operator >> /tmp/summit.log"
   su - summit -s /bin/bash -c  "cd /home/summit/src/ && git clone https://github.com/kvenkata986/shanghai-summit.git"
+  su - summit -s /bin/bash -c  "cp -p /home/summit/src/shanghai-summit/summit-operator/operator.sh /home/summit/src/operator.sh"
 
 }
 
