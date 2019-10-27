@@ -55,7 +55,7 @@ function step3 () {
   kubectl create -f deploy/crds/kubedge_v1alpha1_cloner_crd.yaml
 
   printf "$(tput setaf 2)Update 'deploy/operator.yaml' with openinfra-summit image \n \n$(tput setaf 9)"
-  sed -i 's|REPLACE_IMAGE|kvenkata986/shanghai-summit:v0.0.1|g' deploy/operator.yaml
+  sed -i 's|REPLACE_IMAGE|kvenkata986/shanghai-summit:v0.0.2|g' deploy/operator.yaml
 
 }
 
@@ -91,6 +91,7 @@ function step5 () {
   printf "$(tput setaf 2)Update the CR to match with latest temaplate Spec \n \n$(tput setaf 9)"
   wget https://raw.githubusercontent.com/kvenkata986/shanghai-summit/master/summit-operator/deploy/crds/cloner_v1alpha1_cloner_cr.yaml -O $OPENINFRAPATH/deploy/crds/kubedge_v1alpha1_cloner_cr.yaml
   printf "$(tput setaf 2)Create the example Cloner CR that was generated at deploy/crds/kubedge_v1alpha1_cloner_cr.yaml \n \n$(tput setaf 9)"
+  sed -i 's|cloner.example.com|kubedge.cloud.com|g' deploy/crds/kubedge_v1alpha1_cloner_cr.yaml
   kubectl apply -f  deploy/crds/kubedge_v1alpha1_cloner_cr.yaml
 
 }
