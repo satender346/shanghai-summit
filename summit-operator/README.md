@@ -62,7 +62,7 @@ Naviagte to `/home/summit/src`
    3. Creates RoleBinding Account by executing `kubectl create -f deploy/role_binding.yaml`.
    4. Deploy openinfra-summit Controller `kubectl create -f deploy/operator.yaml`.
 
-			./operator.sh step3
+			./operator.sh step4
 
   Verify that the `openinfra-summit` Deployment is up and running:
 

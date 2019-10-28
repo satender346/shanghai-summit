@@ -22,30 +22,41 @@ Tekton Pipelines is an OpenSource project by Google to Build, Run and Maintain C
 
 ## Getting Started
 
-1. Navigate to `shanghai-summit/tekton` directory
+Login to server with username `summit` and password as `summit`.
 
-		cd /home/summit/src/shanghai-summit/tekton
+        ssh summit@IPADRESS
 
-2. Install Tekton. This command downloads latest release of tekton and does a `kubectl apply -f  https://storage.googleapis.com/tekton-releases/pipeline/previous/v0.7.0/release.yaml`
+Naviagte to `/home/summit/src`
+
+cd /home/summit/src/shanghai-summit/tekton
+
+Let’s set your name variable as a environment variable, So docker image can be pushed with your name as tag. Note: Replace {{ username }} with your name.
+
+	export name={{ YOURNAME }}
+	Example: export name=chris
+
+## Steps to Execute
+
+1. Install Tekton. This command downloads v0.7.0 version of Tekton
 
 		./tekton.sh deploy_tekton
 
-3. Create Docker Registry Secret and Service Account
+2. Create Docker Registry Secret and Service Account
 
 		./tekton.sh docker_registry
 
-4. Now create `PipelineResource` for Github and DockerHub. Here we specify our git repository and Project in DockerHub were images are pushed
+3. Now create `PipelineResource` for Github and DockerHub. Here we specify our git repository and Project in DockerHub where images are pushed
 
 		./tekton.sh create_PipelineResource
 
-5. Now Create a `Task` which downloads our repo specified in above step from github and using the `Dockerfile` from the downloaded repo, it builds Image using kaniko.
+4. Now Create a `Task` which downloads our repo specified in above step from github and using the `Dockerfile` from the downloaded repo, it builds Image using kaniko.
 
 		./tekton.sh create_Task
 
-6. Now Create `TaskRun` to run above pipeline
+5. Now Create `TaskRun` to run above pipeline
 
 		./tekton.sh create_TaskRun
 
-To see all the resource created so far as part of Tekton Pipelines, run the command
+6. To see all the resource created so far as part of Tekton Pipelines, run the command
 
 		kubectl get tekton-pipelines
