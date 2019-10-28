@@ -30,9 +30,9 @@ Naviagte to `/home/summit/src`
 
 	cd /home/summit/src/shanghai-summit/tekton
 
-Let’s set your name variable as a environment variable, So docker image can be pushed with your name as tag. Note: Replace {{ username }} with your name.
+Let’s set your name variable as a environment variable, So docker image can be pushed with your name as tag. Note: Replace <username> with your name.
 
-	export name={{ YOURNAME }}
+	export name=<YOURNAME>
 	Example: export name=chris
 
 ## Steps to Execute

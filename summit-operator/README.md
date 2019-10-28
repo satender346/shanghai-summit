@@ -37,14 +37,14 @@ Naviagte to `/home/summit/src`
 
 1. Step1 implements,
    1. Executes `operator-sdk new openinfra-summit` command to create a new Project called `openinfra-summit`.
-   2. Executes `go mod tidy` from the folder to install all dependencies  required for `GO`.
+   2. Executes `go mod tidy` from the folder the `openinfra-summit` folder to install all dependencies  required for `GO`.
 
 			./operator.sh step1
 
 2. Step2 implements,
    1. Executes `operator-sdk add api --api-version=kubedge.cloud.com/v1alpha1 --kind=Cloner` to add a new Custom Resource Definition API called Cloner with APIVersion kubedge.cloud.com/v1alpha1 and Kind Cloner.
    2. Modifies `pkg/apis/kubedge/v1alpha1/cloner_types.go` to define new fields for `Cloner` `spec` and `status`.
-   3. Executes `operator-sdk generate k8s' after modifying the cloner_types.go` file to update the generated code for that resource type.
+   3. Executes `operator-sdk generate k8s` after modifying the `cloner_types.go` file to update the generated code for that resource type.
    4. Executes `operator-sdk generate openapi` to automatically generate the OpenAPI validations.
 
 			./operator.sh step2
