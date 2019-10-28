@@ -24,11 +24,11 @@ Tekton Pipelines is an OpenSource project by Google to Build, Run and Maintain C
 
 Login to server with username `summit` and password as `summit`.
 
-        ssh summit@IPADRESS
+	ssh summit@IPADRESS
 
 Naviagte to `/home/summit/src`
 
-cd /home/summit/src/shanghai-summit/tekton
+	cd /home/summit/src/shanghai-summit/tekton
 
 Let’s set your name variable as a environment variable, So docker image can be pushed with your name as tag. Note: Replace {{ username }} with your name.
 
