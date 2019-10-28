@@ -37,7 +37,7 @@ Let’s set your name variable as a environment variable, So docker image can be
 
 ## Steps to Execute
 
-1. Install Tekton. This command downloads v0.7.0 version of Tekton
+1. Install Tekton. This command downloads and Installs `v0.7.0` version of Tekton
 
 		./tekton.sh deploy_tekton
 
