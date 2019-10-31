@@ -1,2 +1,3 @@
-# shanghai-summit
-Collection of script and Operators required for OpenStack Shanghai Summit
+# Open Infrastructure Summit - Shanghai
+Collection of Scripts, Operators and Tektons required for Open Infrastructure Summit, Shanghai
+
