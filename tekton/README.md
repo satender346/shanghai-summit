@@ -60,3 +60,5 @@ Let’s set your name variable as a environment variable, So docker image can be
 6. To see all the resource created so far as part of Tekton Pipelines, run the command
 
 		kubectl get tekton-pipelines
+
+`welcome` image is pushed with your name as tag. Check [DockerHub](https://hub.docker.com/r/summit2019/welcome/tags "DockerHub") for the image with your tag  
