@@ -17,6 +17,7 @@ function create_user () {
   service ssh reload
   su - summit -c "alias mop='echo https://github.com/kvenkata986/shanghai-summit'"
   su - summit -c "alias MOP='echo https://github.com/kvenkata986/shanghai-summit'"
+
 }
 
 function install_kubernetes () {
