@@ -81,5 +81,12 @@ Naviagte to `/home/summit/src`
 
 	kubectl get pods
 	NAME                                READY   STATUS    RESTARTS   AGE
-	summit-pod                          1/1     Running   0          7s
+	summit-cloner-pod                   1/1     Running   0          7s
 	openinfra-summit-5f5d76564d-f45tx   1/1     Running   0          25s
+
+  Check our newly created operator called `Cloner` 
+
+	kubectl get cloner
+	NAME            AGE
+	summit-cloner   10s
+

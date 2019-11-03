@@ -92,7 +92,7 @@ function step5 () {
   wget https://raw.githubusercontent.com/kvenkata986/shanghai-summit/master/summit-operator/deploy/crds/cloner_v1alpha1_cloner_cr.yaml -O $OPENINFRAPATH/deploy/crds/kubedge_v1alpha1_cloner_cr.yaml
   printf "$(tput setaf 2)Create the example Cloner CR that was generated at deploy/crds/kubedge_v1alpha1_cloner_cr.yaml \n \n$(tput setaf 9)"
   sed -i 's|cloner.example.com|kubedge.cloud.com|g' deploy/crds/kubedge_v1alpha1_cloner_cr.yaml
-  sed -i 's|example|summit|g' deploy/crds/kubedge_v1alpha1_cloner_cr.yaml
+  sed -i 's|example|summit-cloner|g' deploy/crds/kubedge_v1alpha1_cloner_cr.yaml
   kubectl apply -f  deploy/crds/kubedge_v1alpha1_cloner_cr.yaml
 
 }
