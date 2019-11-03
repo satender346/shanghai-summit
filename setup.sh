@@ -15,8 +15,8 @@ function create_user () {
   sed -i 's/#   PasswordAuthentication yes/   PasswordAuthentication yes/g' /etc/ssh/ssh_config
   echo 'summit  ALL=(ALL) NOPASSWD: ALL' >> /etc/sudoers
   service ssh reload
-  su - summit -c "alias mop='echo https://github.com/kvenkata986/shanghai-summit' >> ~/.profile"
-  su - summit -c "alias MOP='echo https://github.com/kvenkata986/shanghai-summit' >> ~/.profile"
+  su - summit -c 'echo alias mop=\"echo https://github.com/kvenkata986/shanghai-summit\" >> .bashrc'
+  su - summit -c 'echo alias MOP=\"echo https://github.com/kvenkata986/shanghai-summit\" >> .bashrc'
 
 }
 
