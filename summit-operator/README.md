@@ -13,7 +13,7 @@ Create a simple Go-based Operator where the custom resource for the application 
 
 - Add a new CRD API called Cloner, with APIVersion `kubedge.cloud.com/v1alpha1` and `Kind: Cloner` using the `operator-sdk` command line.
 
-- Update `pkg/apis/kubedge/v1alpha1/cloner_types.go` as required with custom `Specs` and `Status` required to deploy our application `Cloner`. After updating `cloner_types.go` run `operator-sdk generate k8s` and `operator-sdk generate openapi` to update the generated code for that resource type.
+- Update `pkg/apis/kubedge/v1alpha1/cloner_types.go` as required with custom `Specs` and `Status` to deploy our application `Cloner`. After updating `cloner_types.go` run `operator-sdk generate k8s` and `operator-sdk generate openapi` to update the generated code for that resource type.
 
 - Add a new Controller for our project `openinfra-summit` which watches and reconciles the `Cloner` resource, this is done using the operator-sdk command line. This will scaffold a new Controller implementation under `pkg/controller/cloner/`.
 
